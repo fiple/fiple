@@ -1,5 +1,5 @@
 module.exports = {
-    name: "add",
+    name: "addwl",
     description: "Принять участника на сервер.",
     permissionRequired: 2,
     opts: [
@@ -27,12 +27,13 @@ const db = require("../database/")();
 
 module.exports.run = async (interaction = new CommandInteraction) => {
     const gdb = await db.guild(interaction.guild.id);
-    const nick = interaction.options.getString("nick")
-    const member = interaction.options.getMember("member")
+    const nick = interaction.options.getString("nick");
+    const member = interaction.options.getMember("member");
+    if (gdb.get().nicknames[member.user.id]) { return interaction.reply({ content: "Человек уже добавлен", ephemeral: true }) }
     rcon.on("output", res => {
         gdb.setOnObject("nicknames", member.id, nick);
         rcon.close();
-        return interaction.reply({ content: `Ответ: ${res}`, ephermeal: true });
+        return interaction.reply({ content: `Ответ: ${res}`, ephemeral: true });
     })
     await rcon.connect().then(() => { rcon.run("easywl add " + nick).catch(err => console.error(err)) }).catch(err => { return interaction.reply("Невозможно подключиться к Rcon") })
 };
