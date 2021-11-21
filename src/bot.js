@@ -13,7 +13,6 @@ const client = new Discord.Client({
         }
     }
 });
-const web = require("./web/index")
 const db = require("./database/")();
 const { deleteMessage } = require("./handlers/utils");
 
@@ -28,7 +27,7 @@ global.db = db;
 let shard = "[Shard N/A]";
 
 client.once("shardReady", async (shardId, unavailable = new Set()) => {
-    if (config.web.enable) web();
+    if (config.web.enable) require("./web/index")();
     client.shardId = shardId;
     shard = `[Shard ${shardId}]`;
     console.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
