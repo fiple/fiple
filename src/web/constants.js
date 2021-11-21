@@ -12,13 +12,13 @@ module.exports.set = async (id, nick) => {
 }
 module.exports.addBalance = async (id, amount) => {
     const gdb = await db.guild("906177011482001428");
-    if (gdb.get().sitebalance[id]) return gdb.setOnObject("sitenicknames", id, gdb.get().sitebalance[id] + amount);
-    return gdb.setOnObject("sitenicknames", id, amount)
+    if (gdb.get().sitebalance[id]) return gdb.setOnObject("sitebalance", id, gdb.get().sitebalance[id] + amount);
+    return gdb.setOnObject("sitebalance", id, amount)
 }
 module.exports.getBalance = async (id) => {
     const gdb = await db.guild("906177011482001428");
     const balance = gdb.get().sitebalance[id];
     if (balance) return balance;
-    gdb.setOnObject("sitenicknames", id, 0);
+    gdb.setOnObject("sitebalance", id, 0);
     return 0;
 }
