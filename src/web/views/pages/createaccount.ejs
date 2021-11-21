@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<body>
+    <div id="info">
+        <%= user.username+"#"+user.discriminator %>, чтобы попасть на сервер, вам нужно пройти регистрацию.<br>
+            <form name="accountcreate" method="POST" action="/formsubmit">
+                <input type="text" placeholder="Ваш никнейм" name="nick"></input>
+                <input type="submit" value="Отправить"></input>
+            </form>
+
+
+    </div>
+
+</body>
+
+</html>

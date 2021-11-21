@@ -5,6 +5,8 @@ const dbCache = new Map(), dbSaveQueue = new Map();
 const guildObject = {
     guildid: String(),
     nicknames: Object(),
+    sitenicknames: Object(),
+    sitebalance: Object(),
 };
 
 const guildSchema = Schema(JSON.parse(JSON.stringify(guildObject)), { minimize: true });

@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <div class="playerinfo">
+        <h5>Профиль пользователя <%= user.username+"#"+user.discriminator %>
+        </h5>
+        Никнейм:<%= nick %><br>Баланс:<%= balance%>
+    </div>
+</body>
+
+
+
+</html>

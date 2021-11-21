@@ -27,6 +27,7 @@ global.db = db;
 let shard = "[Shard N/A]";
 
 client.once("shardReady", async (shardId, unavailable = new Set()) => {
+    //require("./web/index")()
     client.shardId = shardId;
     shard = `[Shard ${shardId}]`;
     console.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
