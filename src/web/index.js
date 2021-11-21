@@ -14,7 +14,7 @@ const bodyParser = require('body-parser'),
 const oauth = new DiscordOauth2({
     clientId: clientId,
     clientSecret: clientSecret,
-    redirectUri: "http://localhost:4000/oauth2",
+    redirectUri: config.web.oauth2link,
 });
 
 const app = express();
