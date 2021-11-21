@@ -88,5 +88,5 @@ app.get('*', async (request, response) => {
 });
 
 
-app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`));
+//app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`));
 module.exports = () => (app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`)));
