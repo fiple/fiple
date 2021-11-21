@@ -62,7 +62,7 @@ app.get('/dashboard', async (request, response) => {
 app.get('/oauth2', async (request, response) => {
     let user = {};
     const code = request.query.code;
-    const url = "https://discord.com/api/oauth2/authorize?client_id=908766516563038268&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Foauth2&response_type=code&scope=identify";
+    const url = "https://discord.com/api/oauth2/authorize?client_id=908766516563038268&redirect_uri=http%3A%2F%2Fus-east02.djoh.xyz%3A4000%2Foauth2&response_type=code&scope=identify";
     if (!code) return response.redirect(url);
     oauth.tokenRequest({
         code: code,
