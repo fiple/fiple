@@ -1,5 +1,5 @@
 const express = require('express');
-require("nodejs-better-console").overrideConsole();
+//require("nodejs-better-console").overrideConsole();
 const DiscordOauth2 = require("discord-oauth2");
 const config = require("../../config");
 const clientId = config.web.clientId;
@@ -11,7 +11,9 @@ const bodyParser = require('body-parser'),
     redisStorage = require('connect-redis')(session),
     redis = require('redis'),
     client = redis.createClient(),
-    db = require("./constants")
+    db = require("./constants"),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 const oauth = new DiscordOauth2({
     clientId: clientId,
     clientSecret: clientSecret,
@@ -27,16 +29,15 @@ app.get("/images/icon", (req, res) => res.sendFile(__dirname + "/static/images/i
 //app.get("/js/fomantic.js", (req, res) => res.sendFile(__dirname + "/static/js/fomantic.min.js"));
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }));
+passport.initialize()
+passport.use(new LocalStrategy((user, done) => { done(null, user) }))
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(
     session({
-        store: new redisStorage({
-            host: "localhost",
-            port: config.web.port,
-            client: client,
-            ttl: 3600000,
-        }),
         secret: config.web.redisSecret,
         saveUninitialized: true,
         resave: true,
@@ -90,4 +91,4 @@ app.get('*', async (request, response) => {
 
 
 
-module.exports = app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`));
+module.exports = () => (app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`)));
