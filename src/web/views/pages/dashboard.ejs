@@ -12,7 +12,7 @@
     <div class="playerinfo">
         <h5>Профиль пользователя <%= user.username+"#"+user.discriminator %>
         </h5>
-        Никнейм:<%= nick %><br>Баланс:<%= balance%>
+        Никнейм: <%= nick %><br>Баланс: <%=(typeof balance !="undefined" ? balance : "" ) %>
     </div>
 </body>
 

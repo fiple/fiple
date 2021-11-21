@@ -43,7 +43,7 @@ app.use(
 app.post('/formsubmit', async (request, response) => {
     if (!request.session.user) return response.redirect('/oauth2');
     let nick = request.body.nick;
-    await db.set(request.session.user, nick);
+    await db.set(request.session.user.id, nick);
     return response.render(__dirname + '/views/pages/dashboard.ejs', { user: request.session.user, nick: nick });
 });
 app.get('/', async (request, response) => {
@@ -57,12 +57,13 @@ app.get('/dashboard', async (request, response) => {
     const user = request.session.user;
     const balance = await db.getBalance(user.id);
     if (!await db.get(user.id)) return response.render(__dirname + '/views/pages/createaccount.ejs', { user: user });
-    return response.render(__dirname + '/views/pages/dashboard.ejs', { user: user, nick: await db.get(user.id), balance: balance });
+    const nick = await db.get(user.id);
+    return response.render(__dirname + '/views/pages/dashboard.ejs', { user: user, nick: nick, balance: balance });
 });
 app.get('/oauth2', async (request, response) => {
     let user = {};
     const code = request.query.code;
-    const url = "https://discord.com/api/oauth2/authorize?client_id=908766516563038268&redirect_uri=http%3A%2F%2Fus-east02.djoh.xyz%3A4000%2Foauth2&response_type=code&scope=identify";
+    const url = config.web.oauth2redlink;
     if (!code) return response.redirect(url);
     oauth.tokenRequest({
         code: code,
@@ -87,5 +88,5 @@ app.get('*', async (request, response) => {
 });
 
 
-
+app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`));
 module.exports = () => (app.listen(config.web.port, () => console.log(`App listening at http://localhost:${config.web.port}`)));

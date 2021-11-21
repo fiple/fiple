@@ -18,7 +18,7 @@ module.exports.addBalance = async (id, amount) => {
 module.exports.getBalance = async (id) => {
     const gdb = await db.guild("906177011482001428");
     const balance = gdb.get().sitebalance[id];
-    if (balance) return balance;
-    gdb.setOnObject("sitebalance", id, 0);
-    return 0;
+    console.log(balance)
+    if (!balance) return 0;
+    return gdb.get().sitebalance[id];
 }
