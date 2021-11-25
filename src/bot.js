@@ -67,7 +67,7 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-    if (member.guild.id == "906177011482001428") {
+    if (member.guild.id == "912342950070075424") {
         member.roles.add("908989896419602443");
         member.guild.channels.cache.get("906178393584836648").send({
             content: `${member.user},`,
