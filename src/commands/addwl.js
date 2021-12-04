@@ -35,5 +35,5 @@ module.exports.run = async (interaction = new CommandInteraction) => {
         rcon.close();
         return interaction.reply({ content: `Ответ: ${res}`, ephemeral: true });
     })
-    await rcon.connect().then(() => { rcon.run("easywl add " + nick).catch(err => console.error(err)) }).catch(err => { return interaction.reply("Невозможно подключиться к Rcon") })
+    await rcon.connect().then(() => { rcon.run("easywl add " + nick).catch(err => console.error(err)) }).catch(err => { return interaction.reply({ content: "Невозможно подключиться к Rcon\n" + err, ephemeral: true }) })
 };
