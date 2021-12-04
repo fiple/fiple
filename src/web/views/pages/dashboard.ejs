@@ -9,11 +9,16 @@
     <header>
         <%- include('../partials/header'); %>
     </header>
-    <div class="playerinfo">
-        <h5>Профиль пользователя <%= user.username+"#"+user.discriminator %>
-        </h5>
-        Никнейм: <%= nick %><br>Баланс: <%=(typeof balance !="undefined" ? balance : "" ) %>
+    <div class="playerinfo" style="float:left;width: 200px; font-size: 40px;">
+        <%- user.skin%>
+            <%= nick.nick%>
+                <%=(typeof balance !="undefined" ? balance : "" )%>₽
+                    <%- (admins.includes(user.id)) ? include('../partials/adminbutton') : "" %>
     </div>
+    <div class="playerinfo" style="float:right; width: 600px;">
+        <%- include('../partials/dashserver'); %>
+    </div>
+
 </body>
 
 

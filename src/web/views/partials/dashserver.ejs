@@ -1,0 +1,24 @@
+<div style="font-size: 40px;" , id="payinfo">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+    </path>
+
+</div>
+<script>
+    const buyWl = async () => {
+        const response = await fetch('/dashboard/buy', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        }); document.location.reload();
+    };
+    let amount = "<%= balance < 50 ? 50 - balance : '' %>" //ejs rendering kek
+    const whitelisted = "<%= nick.whitelisted%>" === "true"
+    if (whitelisted) document.getElementById("payinfo").innerHTML = "<h5>Вы можете приобрести также:</h5><br>НИЧЕГО АБСОЛЮТНО";
+    else if (amount > 0) {
+        document.getElementById("payinfo").innerHTML = `<h5>Как пополнить баланс?</h5><br> 
+    1. Перейдите по <a href = "https://donationalerts.com/r/esworld">ссылке</a><br> 
+    2. Введите следующие данные в поля:<br>Ваше имя: <%=nick.nick%><br>Сумма: ${amount}<br>
+    3. После этого в этом месте у вас<br> должна появиться кнопка<br> с надписью "Купить проходку"`
+    }
+    else document.getElementById("payinfo").innerHTML = "На вашем счету уже достаточно денег чтобы<br><br><button class='button1' onclick='buyWl()'>Купить проходку</button>"
+</script>
