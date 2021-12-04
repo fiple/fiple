@@ -53,7 +53,7 @@ module.exports.addWhitelist = async (nick, id) => {
                 gdb.setOnObject("sitebalance", id, Number(gdb.get().sitebalance[id]) - 50);
                 return status = { status: 200, answer: "ok", res: res }
             })
-            await rcon.connect().then(() => { rcon.run("easywl add " + nick).catch(err => { return { status: 204, answer: err.message } }) }).catch(err => { return { status: 204, answer: "cannot connect to rcon" } })
+            await rcon.connect().then(() => { rcon.run("easywl add " + nick.nick).catch(err => { return { status: 204, answer: err.message } }) }).catch(err => { return { status: 204, answer: "cannot connect to rcon" } })
         }
         return { status: 400, answer: id }
     }
